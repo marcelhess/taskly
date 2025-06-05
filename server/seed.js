@@ -18,6 +18,14 @@ const users = [
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
    },
+   {
+      username: "peter60",
+      email: "peter@mail.com",
+      password: "password123",
+      avatar: "https://g.codewithnathan.com/default-user.png",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+   },
 ];
 
 const tasks = [
