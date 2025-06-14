@@ -9,12 +9,14 @@ import Profile from "./pages/Profile.jsx";
 
 import { UserProvider } from "./context/UserContext.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import NavBar from "./components/NavBar.jsx";
 
 export default function App() {
    return (
       <UserProvider>
          <ChakraProvider>
             <BrowserRouter>
+               <NavBar />
                <Toaster position="bottom-right" />
                <Routes>
                   <Route path="/" element={<Home />} />
