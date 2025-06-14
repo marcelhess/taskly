@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormControl, Input, Button, Text, Box, Flex, Heading, Stack, FormErrorMessage } from "@chakra-ui/react";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../util.js";
+import { useUser } from "../context/UserContext.jsx";
 
 export default function SignUp() {
+   const { updateUser } = useUser();
+   const navigate = useNavigate();
+
    const {
       handleSubmit,
       register,
@@ -23,6 +27,8 @@ export default function SignUp() {
          const data = await res.json();
          if (res.status === 200) {
             toast.success("Sign Up Successful! You are now logged in.");
+            updateUser(data);
+            useNavigate("/profile");
          } else {
             toast.error(data.message);
          }
@@ -30,7 +36,7 @@ export default function SignUp() {
          toast.error("Something went wrong.");
       }
    };
-   
+
    return (
       <Box p="3" maxW="lg" mx="auto">
          <Heading as="h1" textAlign="center" fontSize="3xl" fontWeight="semibold" my="7">
