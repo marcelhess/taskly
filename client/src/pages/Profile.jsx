@@ -19,6 +19,8 @@ import {
    useDisclosure,
 } from "@chakra-ui/react";
 import DeleteConfirmation from "../components/DeleteConfirmation.jsx";
+//import { useDisclosure } from "@chakra-ui/react"; -> wird bereits importiert
+import DeleteConfirmation from "../components/DeleteConfirmation.jsx";
 
 export default function Profile() {
    const navigate = useNavigate();
