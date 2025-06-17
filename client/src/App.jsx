@@ -26,7 +26,6 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/signin" element={<SignIn />} />
                   <Route path="/signup" element={<SignUp />} />
-
                   <Route element={<PrivateRoute />}>
                      <Route path="/profile" element={<Profile />} />
                      <Route path="/create-task" element={<CreateTask />} />
