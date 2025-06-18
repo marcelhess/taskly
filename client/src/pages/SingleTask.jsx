@@ -1,11 +1,13 @@
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../util.js";
-import { Badge, Box, Flex, Heading, Stack, Text, Link, Card, CardBody } from "@chakra-ui/react";
+import { Badge, Box, Flex, Heading, Stack, Text, Link, Card, CardBody, useDisclosure } from "@chakra-ui/react";
 import SingleTaskSkeleton from "../_skeletons/SingleTaskSkeleton.jsx";
 import { BsChevronLeft } from "react-icons/bs";
+import DeleteConfirmation from "../components/DeleteConfirmation.jsx";
 
 export default function SingleTask() {
+   const { isOpen, onOpen, onClose } = useDisclosure();
    const [task, setTask] = useState();
    const { taskId } = useParams();
    const navigate = useNavigate();
@@ -21,6 +23,20 @@ useEffect(() => {
    };
    fetchTask();
 }, []);
+
+const handleDeleteTask = async () => {
+   const res = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+      method: "DELETE"
+      credentials: "include",
+   });
+   const data = await res.json();
+   if (res.status === 200) {
+      toast.success(data.message);
+      navigate("/tasks");
+   } else {
+      toast.error(data.message);
+   }
+};
 
 if (!task) {
    return <SingleTaskSkeleton />;
@@ -50,12 +66,18 @@ return (
          </CardBody>
       </Card>
       <Flex justify="space-between" mt="5">
-         <Text as="span" color="red.600">
+         <Text as="span" color="red.600" cursor="pointer" onClick={onOpen}>
             Delete Task
          </Text>
          <Link as={RouterLink} to={`/update-task/${task._id}`} color="teal" _hover={{ textDecor: "none" }}>
             Edit Task
          </Link>
       </Flex>
+      <DeleteConfirmation
+      alertTitle="Delete Task"
+      handleClick={handleDeleteTask}
+      isOpen={isOpen}
+      onClose={onClose}
+      />
    </Box>
 );
