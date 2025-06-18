@@ -67,14 +67,14 @@ const doSubmit = async value => {
 
 return (
     <form onSubmit={handleSubmit(doSubmit)}>
-      <Stack direction={{ base: 'column', md: 'row' }} gap='4'>
-        <Flex direction='column' flex='1' gap='4'>
+      <Stack direction={{ base: "column", md: "row" }} gap="4">
+        <Flex direction="column" flex="1" gap="4">
           <FormControl isInvalid={errors.name}>
             <Input
-              id='name'
-              type='text'
-              placeholder='Task Name'
-              {...register('name', { required: 'Task Name is required' })}
+              id="name"
+              type="text"
+              placeholder="Task Name"
+              {...register("name", { required: "Task Name is required" })}
             />
             <FormErrorMessage>
               {errors.name && errors.name.message}
@@ -82,12 +82,12 @@ return (
           </FormControl>
           <FormControl isInvalid={errors.description}>
             <Textarea
-              id='description'
-              type='text'
-              placeholder='Description'
+              id="description"
+              type="text"
+              placeholder="Description"
               rows={4}
-              {...register('description', {
-                required: 'Description is required',
+              {...register("description", {
+                required: "Description is required",
               })}
             />
             <FormErrorMessage>
@@ -95,14 +95,14 @@ return (
             </FormErrorMessage>
           </FormControl>
         </Flex>
-        <Flex direction='column' flex='1' gap='4'>
+        <Flex direction="column" flex="1" gap="4">
           <FormControl isInvalid={errors.priority}>
             <Select
-              placeholder='Priority'
-              {...register('priority', { required: 'Priority is required' })}
+              placeholder="Priority"
+              {...register("priority", { required: "Priority is required" })}
             >
-              <option value='urgent'>Urgent</option>
-              <option value='not urgent'>Not Urgent</option>
+              <option value="urgent">Urgent</option>
+              <option value="not urgent">Not Urgent</option>
             </Select>
             <FormErrorMessage>
               {errors.priority && errors.priority.message}
@@ -110,11 +110,11 @@ return (
           </FormControl>
           <FormControl isInvalid={errors.status}>
             <Select
-              placeholder='Status'
-              {...register('status', { required: 'Status is required' })}
+              placeholder="Status"
+              {...register("status", { required: "Status is required" })}
             >
-              <option value='open'>Open</option>
-              <option value='done'>Done</option>
+              <option value="open">Open</option>
+              <option value="done">Done</option>
             </Select>
             <FormErrorMessage>
               {errors.status && errors.status.message}
@@ -122,33 +122,33 @@ return (
           </FormControl>
           <FormControl
             sx={{
-              '.react-datepicker-wrapper': {
-                width: '100%',
+              ".react-datepicker-wrapper": {
+                width: "100%",
               },
             }}
           >
             <Controller
               control={control}
-              name='due'
+              name="due"
               render={({ field }) => (
                 <Input
                   as={DatePicker}
-                  id='due'
+                  id="due"
                   {...field}
                   selected={field.value}
                   showTimeSelect
-                  timeInputLabel='Time:'
-                  dateFormat='MM/dd/yyyy h:mm aa'
-                  placeholderText='Due Date (Optional)'
+                  timeInputLabel="Time:"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                  placeholderText="Due Date (Optional)"
                 />
               )}
             />
           </FormControl>
           <Button
-            type='submit'
+            type="submit"
             isLoading={isSubmitting}
-            colorScheme='teal'
-            textTransform='uppercase'
+            colorScheme="teal"
+            textTransform="uppercase"
           >
             Submit
           </Button>
