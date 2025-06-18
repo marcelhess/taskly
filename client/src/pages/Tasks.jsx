@@ -17,10 +17,11 @@ import {
    Td,
    TableContainer,
 } from "@chakra-ui/react";
+import TasksSkeleton from "../components/TasksSkeleton.jsx";
 
 export default function Tasks() {
    const { user } = useUser();
-   const [tasks, setTasks] = useState([]);
+   const [tasks, setTasks] = useState();
 
    useEffect(() => {
       const fetchTasks = async () => {
