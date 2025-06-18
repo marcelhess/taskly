@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../context/UserContext.jsx";
 import { API_BASE_URL } from "../util.js";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
    Badge,
    Box,
@@ -18,21 +18,29 @@ import {
    TableContainer,
 } from "@chakra-ui/react";
 import TasksSkeleton from "../components/TasksSkeleton.jsx";
+import Pagination from "../components/Pagination.jsx";
+import { BsArrowUp } from "react-icons/bs";
 
 export default function Tasks() {
    const { user } = useUser();
    const [tasks, setTasks] = useState();
 
+   const [searchParams, setSearchParams] = useSearchParams();
+   const [itemCount, setItemCount] = useState(0);
+   const page = parseInt(searchParams.get("page")) || 1;
+
    useEffect(() => {
       const fetchTasks = async () => {
+        const query = searchParams.size ? "?" + searchParams.toString() : "";
          const res = await fetch(`${API_BASE_URL}/tasks/user/${user.id}`, {
             credentials: "include",
    });
-   const { tasks } await res.json();
+   const { tasks, taskCount } await res.json();
    setTasks(tasks);
+   setItemCount(taskCount);
 };
 fetchTasks();
-}, []);
+}, [searchParams]);
 
 if(!tasks){
     return <TasksSkeleton />;
@@ -99,6 +107,7 @@ if(!tasks){
           </Tbody>
         </Table>
       </TableContainer>
+      <Pagination itemCount={itemCount} pageSize={4} currentPage={page}/>
     </Box>
   );
   }
