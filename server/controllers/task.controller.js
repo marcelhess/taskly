@@ -6,8 +6,23 @@ const collection = db.collection("tasks");
 export const getTasksByUser = async (req, res, next) => {
    try {
       const query = { owner: new ObjectId(req.params.id) };
-      const tasks = await collection.find(query).toArray();
-      res.status(200).json({ tasks });
+      const { status, orderBy } = req.query;
+      const sort = orderBy ? { [orderBy]: 1 } : {};
+      if (status) {
+         query["status"] = status;
+      }
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 4;
+
+      const tasks = await collection
+         .find(query)
+         .sort(sort)
+         .limit(pageSize)
+         .skip((page - 1) * pageSize)
+         .toArray();
+
+      const taskCount = await collection.count(query);
+      res.status(200).json({ tasks, taskCount });
    } catch (error) {
       next({ status: 500, error });
    }
